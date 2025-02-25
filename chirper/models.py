@@ -24,6 +24,3 @@ class Likes(models.Model):
         User, on_delete=models.CASCADE, related_name="followers"
     ) """
 
-
-def add(x: int, y: int) -> int:
-    return x + y
