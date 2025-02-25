@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-# Create your models here.
 class Chirp(models.Model):
     body = models.CharField(max_length=255)
     date = models.DateTimeField("Created At", auto_now_add=True)
@@ -11,11 +10,19 @@ class Chirp(models.Model):
 
 
 class Likes(models.Model):
-    pass
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    chirp = models.ForeignKey(Chirp, on_delete=models.CASCADE, related_name="likes")
+
+    class Meta:
+        # Ensures only one like per user per chirp
+        unique_together = ("user", "chirp")
 
 
-class Follows(models.Model):
-    pass
+""" class Follows(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
+    followed_user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="followers"
+    ) """
 
 
 def add(x: int, y: int) -> int:
