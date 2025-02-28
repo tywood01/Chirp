@@ -9,18 +9,16 @@ class Chirp(models.Model):
     parent = models.ForeignKey("chirper.Chirp", on_delete=models.CASCADE, null=True)
 
 
-class Likes(models.Model):
+""" class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     chirp = models.ForeignKey(Chirp, on_delete=models.CASCADE, related_name="likes")
 
     class Meta:
-        # Ensures only one like per user per chirp
         unique_together = ("user", "chirp")
 
-
+ """
 """ class Follows(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
     followed_user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="followers"
     ) """
-
