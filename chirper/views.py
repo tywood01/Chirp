@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views import generic
 from chirper.models import Chirp, Profile
 from chirper.templates import chirper
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 # Create your views here.
 
 
@@ -14,21 +16,27 @@ from chirper.templates import chirper
         return Chirp.objects.order_by("-date")[:5]
  """
 
-
-class ProfileView(generic.TemplateView):
+def profile(request, username): 
     template_name = "chirper/profile.html"
-
-    def get_profile(self):
-        return Profile.objects()
-
-
-def profile(request):
-    template_name = "chirper/profile.html"
+    user = get_object_or_404(User, username=username)
+    
+    profile, created = Profile.objects.get_or_create(
+        user=user,
+        defaults={'bio': 'Default bio'},
+    )
+    chirps = Chirp.objects.filter(user=user).order_by('-date')
+    print("Chirps found:", chirps.count())
     context = {
-        "profile": Profile.objects.all(),
+        "profile": profile,
+        "user_chirp_list": chirps,
+        "user": user,
     }
     return render(request, template_name, context)
 
+def my_profile(request):
+    if not request.user.is_authenticated:
+        return redirect('/accounts/login/') 
+    return profile(request, username=request.user.username)
 
 def chirps(request):
     template_name = "chirper/index.html"
