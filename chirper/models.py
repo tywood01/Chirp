@@ -8,7 +8,10 @@ class Chirp(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     parent = models.ForeignKey("chirper.Chirp", on_delete=models.CASCADE, null=True)
 
-
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    bio = models.CharField(max_length=255)
+    
 """ class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     chirp = models.ForeignKey(Chirp, on_delete=models.CASCADE, related_name="likes")
