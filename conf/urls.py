@@ -24,5 +24,9 @@ urlpatterns = [
     path("chirper/", include("chirper.urls")),
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
+    path(
+        "accounts/profile/",
+        RedirectView.as_view(url="/chirper/profile", permanent=True),
+    ),
     path("", RedirectView.as_view(url="/chirper/", permanent=True)),
 ]

@@ -14,6 +14,7 @@ class Chirp(models.Model):
 class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     bio = models.CharField(max_length=255)
+    public = models.BooleanField(default=True)
 
 
 class Likes(models.Model):

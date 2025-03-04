@@ -1,5 +1,3 @@
-<p>Template loaded!</p>
-
 {% if chirp_list %}
 <ul>
     {% for chirp in chirp_list %}
@@ -7,9 +5,25 @@
         <h1>Chirp by {{ chirp.user }}</h1>
         <p>{{ chirp.body }}</p>
         <small>Posted on: {{ chirp.date }}</small>
+        <p>Likes: {{ chirp.likes.count }}</p>
+
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'chirper:toggle_like' chirp_id=chirp.id %}" method="post">
+            {% csrf_token %}
+            {% if request.user in chirp.likes.all %}
+            <input type="submit" value="Unlike">
+            {% else %}
+            <input type="submit" value="Like">
+            {% endif %}
+        </form>
+        {% endif %}
+
     </li>
     {% endfor %}
 </ul>
 {% else %}
 <p>No chirps available.</p>
 {% endif %}
+
+<li><a href="{% url 'chirper:add_chirp' %}">Add Chirp</a></li>
+<li><a href="{% url 'chirper:my_profile' %}">My Profile</a></li>

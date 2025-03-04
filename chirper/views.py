@@ -1,7 +1,7 @@
 # from django.shortcuts import render
 from django.shortcuts import render
 from django.views import generic
-from chirper.models import Chirp, Profile
+from chirper.models import Chirp, Profile, Likes
 from chirper.templates import chirper
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
@@ -9,15 +9,6 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 # Create your views here.
-
-
-""" class IndexView(generic.ListView):
-    template_name = "chirper/index.html"
-    context_object_name = "latest_question_list"
-
-    def get_queryset(self):
-        return Chirp.objects.order_by("-date")[:5]
- """
 
 
 def profile(request, username):
@@ -46,9 +37,11 @@ def my_profile(request):
 
 def chirps(request):
     template_name = "chirper/index.html"
-    chirp_list = Chirp.objects.all()
+    chirp_list = Chirp.objects.all().order_by("-date")
+
     context = {
         "chirp_list": chirp_list,
+        "chirp_likes": {chirp.id: chirp.likes.count() for chirp in chirp_list},
     }
     return render(request, template_name, context)
 
@@ -62,3 +55,15 @@ def add_chirp(request):
             return HttpResponseRedirect(reverse("chirper:chirps"))
     # If GET request or form invalid, show the form
     return render(request, "chirper/add_chirp.html")
+
+
+@login_required
+def toggle_like(request, chirp_id):
+    chirp = get_object_or_404(Chirp, id=chirp_id)
+    like, created = Likes.objects.get_or_create(user=request.user, chirp=chirp)
+
+    if not created:  # If like already exists, remove it
+        like.delete()
+
+    # Redirect back to where the user came from
+    return redirect(reverse("chirper:chirps"))  # Redirect back to homepage
