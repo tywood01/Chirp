@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add New Chirp</title>
+    <style>
+        .chirp-form {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .char-count {
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="chirp-form">
+        <h2>Add a New Chirp</h2>
+
+        <form method="post" action="{% url 'chirper:add_chirp' %}">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <textarea name="body" maxlength="255" placeholder="What's on your mind?" required
+                    onkeyup="updateCharCount(this)"></textarea>
+                <div class="char-count">
+                    <span id="char-count">255</span> characters remaining
+                </div>
+                {% if request.method == 'POST' and not body %}
+                <div class="error">Chirp cannot be empty</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Post Chirp">
+                <a href="{% url 'chirper:chirps' %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateCharCount(textarea) {
+            const remaining = 255 - textarea.value.length;
+            document.getElementById('char-count').textContent = remaining;
+        }
+    </script>
+</body>
+
+</html>

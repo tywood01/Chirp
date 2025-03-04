@@ -16,14 +16,14 @@ class Profile(models.Model):
     bio = models.CharField(max_length=255)
 
 
-""" class Likes(models.Model):
+class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     chirp = models.ForeignKey(Chirp, on_delete=models.CASCADE, related_name="likes")
 
     class Meta:
         unique_together = ("user", "chirp")
 
- """
+
 """ class Follows(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
     followed_user = models.ForeignKey(
