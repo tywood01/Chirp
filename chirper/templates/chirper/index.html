@@ -2,7 +2,7 @@
 <ul>
     {% for chirp in chirp_list %}
     <li>
-        <h1>Chirp by {{ chirp.user }}</h1>
+        <h1>Chirp by <a href="{% url 'chirper:profile' username=chirp.user %}">{{ chirp.user }}"</a> </h1>
         <p>{{ chirp.body }}</p>
         <small>Posted on: {{ chirp.date }}</small>
         <p>Likes: {{ chirp.likes.count }}</p>

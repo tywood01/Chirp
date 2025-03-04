@@ -25,8 +25,13 @@ class Likes(models.Model):
         unique_together = ("user", "chirp")
 
 
-""" class Follows(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
-    followed_user = models.ForeignKey(
+class Follow(models.Model):
+    follower = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="following"
+    )
+    followed = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="followers"
-    ) """
+    )
+
+    class Meta:
+        unique_together = ("follower", "followed")

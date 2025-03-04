@@ -1,7 +1,7 @@
 # from django.shortcuts import render
 from django.shortcuts import render
 from django.views import generic
-from chirper.models import Chirp, Profile, Likes
+from chirper.models import Chirp, Profile, Likes, Follow
 from chirper.templates import chirper
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
@@ -20,11 +20,17 @@ def profile(request, username):
         defaults={"bio": "Default bio"},
     )
     chirps = Chirp.objects.filter(user=user).order_by("-date")
-    print("Chirps found:", chirps.count())
+    is_following = False
+    if request.user.is_authenticated:
+        is_following = Follow.objects.filter(
+            follower=request.user, followed=user
+        ).exists()
+
     context = {
         "profile": profile,
         "user_chirp_list": chirps,
         "user": user,
+        "is_following": is_following,
     }
     return render(request, template_name, context)
 
@@ -67,3 +73,13 @@ def toggle_like(request, chirp_id):
 
     # Redirect back to where the user came from
     return redirect(reverse("chirper:chirps"))  # Redirect back to homepage
+
+
+@login_required
+def toggle_follow(request, followed):
+    user = get_object_or_404(User, username=followed)
+    follow, created = Follow.objects.get_or_create(follower=request.user, followed=user)
+    if not created:
+        follow.delete()
+
+    return redirect(reverse("chirper:chirps"))  # Or redirect to profile

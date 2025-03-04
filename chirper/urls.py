@@ -11,4 +11,5 @@ urlpatterns = [
     path("addchirp/", views.add_chirp, name="add_chirp"),
     path("", views.chirps, name="chirps"),
     path("chirp/<int:chirp_id>/like/", views.toggle_like, name="toggle_like"),
+    path("toggle_follow/<str:followed>/", views.toggle_follow, name="toggle_follow"),
 ]

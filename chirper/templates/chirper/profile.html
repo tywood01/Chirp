@@ -1,6 +1,18 @@
 <h1>Profile for {{ user.username }}</h1>
 <p>Bio: {{ profile.bio }}</p>
 
+
+{% if request.user.is_authenticated %}
+<form action="{% url 'chirper:toggle_follow' followed=user.username %}" method="post">
+    {% csrf_token %}
+    {% if is_following %}
+    <input type="submit" value="Unfollow">
+    {% else %}
+    <input type="submit" value="Follow">
+    {% endif %}
+</form>
+{% endif %}
+
 {% if user_chirp_list %}
 <ul>
     {% for chirp in user_chirp_list %}
