@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from chirper.forms.forms import ChirpForm
 
 
 # Views
@@ -57,15 +58,25 @@ def chirps(request):
 
 
 @login_required
-def add_chirp(request):
+def add_chirp(request, parent_id=None):
     if request.method == "POST":
-        body = request.POST.get("body", "").strip()
-        if body and len(body) <= 255:
-            Chirp.objects.create(body=body, user=request.user)
+        form = ChirpForm(request, request.POST)
+
+        if form.is_valid():
+            chirp = form.save(commit=False)
+            chirp.user = request.user
+
+            if parent_id:
+                chirp.parent_id = parent_id
+
+            form.save()
             return HttpResponseRedirect(reverse("chirper:chirps"))
 
+    else:
+        form = ChirpForm(request, initial={"parent": parent_id})
+
     # If GET request or form invalid, show the form
-    return render(request, "chirper/add_chirp.html")
+    return render(request, "chirper/create_chirp.html", {"form": form})
 
 
 @login_required

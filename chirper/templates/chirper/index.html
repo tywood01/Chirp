@@ -6,6 +6,8 @@
         <p>{{ chirp.body }}</p>
         <small>Posted on: {{ chirp.date }}</small>
         <p>Likes: {{ chirp.likes.count }}</p>
+        <a href="{% url 'chirper:reply_chirp' chirp.id %}">Reply</a>
+
 
         {% if request.user.is_authenticated %}
         <form action="{% url 'chirper:toggle_like' chirp_id=chirp.id %}" method="post">
