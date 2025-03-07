@@ -15,7 +15,7 @@ To install this project, clone the repository and run the following commands:
 
 ```bash
 git clone <repository url>
-cd bigchirper
+cd chirper
 uv sync
 uv run manage.py makemigrations
 uv run manage.py migrate
