@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+
 {% if chirp_list %}
 <ul>
     {% for chirp in chirp_list %}
@@ -29,3 +32,5 @@
 
 <li><a href="{% url 'chirper:add_chirp' %}">Add Chirp</a></li>
 <li><a href="{% url 'chirper:my_profile' %}">My Profile</a></li>
+
+</html>
