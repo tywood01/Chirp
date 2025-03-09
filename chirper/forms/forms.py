@@ -23,6 +23,9 @@ class ChirpForm(forms.ModelForm):
         }
 
 
+""" class LikeForm(forms.Form):
+     """
+
 """ 
 class ProfileForm(forms.ModelForm):
     def __init__(self, request, *args, **kwargs):

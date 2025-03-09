@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chirper</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
+
 <body>
     <header>
         <div class="logo-title">
@@ -15,26 +18,61 @@
         </div>
     </header>
     <main>
-        <div class="chirp-form">
-            <div class="user-info">
-                <div class="avatar"></div>
-                <textarea placeholder="What's chirping?"></textarea>
-            </div>
-            <button class="btn chirp-btn">Chirp</button>
-        </div>
-        <div class="post">
-            <div class="user-info">
-                <div class="avatar"></div>
-                <div class="post-content">
-                    <h3>Welcome to Chirper!</h3>
-                    <p>This is a sample post.</p>
+
+        <a href="{% url 'chirper:add_chirp' %}" class="nav-link">Add Chirp</a>
+        <a href="{% url 'chirper:my_profile' %}" class="nav-link">My Profile</a>
+
+        <br></br>
+
+        {% if chirp_list %}
+        <ul>
+            {% for chirp in chirp_list %}
+
+            <div class="post">
+                <div class="user-info">
+                    <div class="avatar"></div>
+
+                    <div class="post-content">
+                        <h3>Chirp by <a href="{% url 'chirper:profile' username=chirp.user %}">{{ chirp.user }}</a>
+                        </h3>
+                        <p>{{ chirp.body }}</p>
+                        {% if chirp.likes.count == 1 %}
+                        <p>{{ chirp.likes.count }} Like</p>
+                        {% else %}
+                        <p>{{ chirp.likes.count }} likes</p>
+                        {% endif %}
+                        <small>{{ chirp.date }}</small>
+                    </div>
                 </div>
+                {% if request.user.is_authenticated %}
+                <form action="{% url 'chirper:toggle_like' chirp_id=chirp.id %}" method="post">
+                    {% csrf_token %}
+                    {% if request.user in chirp.likes.all %}
+                    <button class="btn like-btn" type="submit">Unlike</button>
+                    {% else %}
+                    <button class="btn like-btn" type="submit">Like</button>
+                    {% endif %}
+                </form>
+                {% endif %}
+
+
+                <form action="{% url 'chirper:reply_chirp' chirp.id %}" method="get">
+                    <button class="btn chirp-btn" type="submit">Reply</button>
+                </form>
+
             </div>
-            <button class="btn like-btn">Like</button>
-        </div>
+
+
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No chirps available.</p>
+        {% endif %}
+
     </main>
     <footer>
-        <p>© 2025 Chirper. All rights reserved.</p>
+        <p>2025 Chirper Project. :)</p>
     </footer>
 </body>
+
 </html>
