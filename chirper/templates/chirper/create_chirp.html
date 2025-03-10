@@ -1,22 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Chirp</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+{% extends 'chirper/base.html' %}
+{% block title %}Chirper{% endblock %}
+{% block logo_text %}<h1>Chirp Away</h1>{% endblock %}
+{% block content %}
 
 <body>
-    <header>
-        <div class="logo-title">
-            <div class="logo"></div>
-            <h1>Create Chirp</h1>
-        </div>
-    </header>
     <main>
         <div class="chirp-form">
             <h2>Add a New Chirp</h2>
@@ -28,9 +15,6 @@
             <a href="{% url 'chirper:chirps' %}" class="btn home-btn">Home</a>
         </div>
     </main>
-    <footer>
-        <p>2025 Chirper Project. :)</p>
-    </footer>
 </body>
 
-</html>
+{% endblock %}
