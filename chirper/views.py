@@ -1,14 +1,10 @@
-# from django.shortcuts import render
-from django.shortcuts import render
-from django.views import generic
-from chirper.models import Chirp, Profile, Likes, Follow
-from chirper.templates import chirper
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
 from django.http import HttpResponseRedirect
-from chirper.forms.forms import ChirpForm
+from chirper.models import Chirp, Profile, Likes, Follow
+from django.urls import reverse
+from chirper.forms.forms import ChirpForm, ProfileForm
 
 
 # Views
@@ -43,6 +39,24 @@ def my_profile(request):
         return redirect("/accounts/login/")
 
     return profile(request, username=request.user.username)
+
+
+@login_required
+def update_profile(request):
+    if request.method == "POST":
+        form = ProfileForm(request, request.POST)
+
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+
+            return HttpResponseRedirect(reverse("chirper:my_profile"))
+
+    else:
+        form = ProfileForm(request)
+
+    return render(request, "chirper/update_profile.html", {"form": form})
 
 
 def chirps(request):
