@@ -27,5 +27,5 @@ urlpatterns = [
         "accounts/profile/",
         RedirectView.as_view(url="/chirper/profile", permanent=True),
     ),
-    path("", RedirectView.as_view(url="/potion/", permanent=True)),
+    path("", RedirectView.as_view(url="/chirper/", permanent=True)),
 ]
