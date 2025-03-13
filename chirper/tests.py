@@ -1,3 +1,15 @@
+"""
+tests.py
+
+Authors: Tytus Woodburn
+Email: tytus.woodburn@student.cune.edu
+Github: https://github.com/tywood01
+
+Purpose:
+    Provide integration tests for the chirper app.
+
+"""
+
 from django.test import TestCase
 from django.contrib.auth.models import User
 from chirper.models import Chirp, Profile, Likes, Follow

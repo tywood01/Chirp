@@ -1,3 +1,15 @@
+"""
+views.py
+
+Authors: Tytus Woodburn
+Email: tytus.woodburn@student.cune.edu
+Github: https://github.com/tywood01
+
+Purpose:
+    Provide view responses for the chirper app.
+
+"""
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -5,6 +17,7 @@ from django.http import HttpResponseRedirect
 from chirper.models import Chirp, Profile, Likes, Follow
 from django.urls import reverse
 from chirper.forms.forms import ChirpForm, ProfileForm
+from django.http import HttpResponse
 
 
 # Views
@@ -98,12 +111,20 @@ def toggle_like(request, chirp_id):
     chirp = get_object_or_404(Chirp, id=chirp_id)
     like, created = Likes.objects.get_or_create(user=request.user, chirp=chirp)
 
-    # If like already exists, remove it
     if not created:
         like.delete()
 
-    # Redirect back to chirps
-    return redirect(reverse("chirper:chirps"))
+    # Fetch updated like count from the Likes model
+    like_count = Likes.objects.filter(chirp=chirp).count()
+
+    return HttpResponse(f'''
+        <button 
+            hx-post="{request.path}" 
+            hx-swap="outerHTML"
+            class="like-button">
+            👍 {like_count}
+        </button>
+    ''')
 
 
 @login_required

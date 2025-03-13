@@ -1,3 +1,15 @@
+"""
+models.py
+
+Authors: Tytus Woodburn
+Email: tytus.woodburn@student.cune.edu
+Github: https://github.com/tywood01
+
+Purpose:
+    Define the models for the chirper app.
+
+"""
+
 from django.contrib.auth.models import User
 from django.db import models
 

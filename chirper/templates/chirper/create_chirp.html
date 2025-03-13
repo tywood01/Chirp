@@ -1,22 +1,25 @@
 {% extends 'chirper/base.html' %}
 {% block title %}
-  Chirper
+Chirper
 {% endblock %}
 {% block logo_text %}
-  <h1>Chirp Away</h1>
+<h1>Chirp Away</h1>
 {% endblock %}
 {% block content %}
-  <body>
+
+<body>
     <main>
-      <div class="chirp-form">
-        <h2>Add a New Chirp</h2>
-        <form method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button class="btn chirp-btn" type="submit">Create Chirp</button>
-        </form>
-        <a href="{% url 'chirper:chirps' %}" class="btn home-btn">Home</a>
-      </div>
+        <a href="{% url 'chirper:chirps' %}" class="nav-link">Home</a>
+        <a href="{% url 'chirper:my_profile' %}" class="nav-link">My Profile</a>
+
+        <div class="chirp-form">
+            <h2>Add a New Chirp</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn chirp-btn" type="submit">Create Chirp</button>
+            </form>
+        </div>
     </main>
-  </body>
+</body>
 {% endblock %}

@@ -1,3 +1,15 @@
+"""
+forms.py
+
+Authors: Tytus Woodburn
+Email: tytus.woodburn@student.cune.edu
+Github: https://github.com/tywood01
+
+Purpose:
+    Define reusable forms for the chirper app.
+
+"""
+
 from django import forms
 from chirper.models import Chirp, Profile
 
