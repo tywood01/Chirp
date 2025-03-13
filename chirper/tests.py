@@ -13,6 +13,7 @@ Purpose:
 from django.test import TestCase
 from django.contrib.auth.models import User
 from chirper.models import Chirp, Profile, Likes, Follow
+from django.urls import reverse
 
 
 class TestChirperModels(TestCase):
@@ -47,10 +48,30 @@ class TestChirperModels(TestCase):
         pass
 
 
-# Create your tests here.
 class TestChirperViews(TestCase):
     def test_profile(self):
-        pass
+        user = User.objects.create_user(username="testuser", password="password")
+        Profile.objects.create(user=user, bio="Test bio")
+
+        Chirp.objects.create(body="Test chirp", user=user)
+
+        # Log in as user
+        self.client.login(username="testuser", password="password")
+
+        # Get the profile page
+        response = self.client.get(
+            reverse("chirper:profile", kwargs={"username": "testuser"})
+        )
+
+        # Check that we get a 200 response
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, "Test bio")
+        self.assertContains(response, "Test chirp")
+
+        # TODO: Fix forms so that a user cannot follow themselves.
+        # self.assertNotContains(response, "Unfollow")
+        # self.assertNotContains(response, "Follow")
 
     def test_my_profile(self):
         pass
