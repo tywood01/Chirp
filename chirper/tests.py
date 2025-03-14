@@ -6,7 +6,7 @@ Email: tytus.woodburn@student.cune.edu
 Github: https://github.com/tywood01
 
 Purpose:
-    Provide integration tests for the chirper app.
+    Provide Unit, Integration and E2E tests for the chirper app.
 
 """
 

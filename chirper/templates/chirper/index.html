@@ -1,56 +1,61 @@
 {% extends 'chirper/base.html' %}
+
 {% block title %}
-  Chirper
+Chirper
 {% endblock %}
+
 {% block logo_text %}
-  <h1>Chirper</h1>
+<h1>Chirper</h1>
 {% endblock %}
+
 {% block content %}
-  <body>
+
+<body>
     <main>
-      <a href="{% url 'chirper:add_chirp' %}" class="nav-link">Add Chirp</a>
-      <a href="{% url 'chirper:my_profile' %}" class="nav-link">My Profile</a>
+        <a href="{% url 'chirper:add_chirp' %}" class="nav-link">Add Chirp</a>
+        <a href="{% url 'chirper:my_profile' %}" class="nav-link">My Profile</a>
 
-      <br></br>
+        <br></br>
 
-      {% if chirp_list %}
+        {% if chirp_list %}
         <ul>
-          {% for chirp in chirp_list %}
+            {% for chirp in chirp_list %}
             <div class="post">
-              <div class="user-info">
-                <div class="avatar"></div>
+                <div class="user-info">
+                    <div class="avatar"></div>
 
-                <div class="post-content">
-                  <h3>Chirp by <a href="{% url 'chirper:profile' username=chirp.user %}">{{ chirp.user }}</a></h3>
-                  <p>{{ chirp.body }}</p>
-                  {% if chirp.likes.count == 1 %}
-                    <p>{{ chirp.likes.count }} Like</p>
-                  {% else %}
-                    <p>{{ chirp.likes.count }} likes</p>
-                  {% endif %}
-                  <small>{{ chirp.date }}</small>
+                    <div class="post-content">
+                        <h3>Chirp by <a href="{% url 'chirper:profile' username=chirp.user %}">{{ chirp.user }}</a></h3>
+                        <p>{{ chirp.body }}</p>
+                        {% if chirp.likes.count == 1 %}
+                        <p>{{ chirp.likes.count }} Like</p>
+                        {% else %}
+                        <p>{{ chirp.likes.count }} likes</p>
+                        {% endif %}
+                        <small>{{ chirp.date }}</small>
+                    </div>
                 </div>
-              </div>
-              {% if request.user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                 <form action="{% url 'chirper:toggle_like' chirp_id=chirp.id %}" method="post">
-                  {% csrf_token %}
-                  {% if request.user in chirp.likes.all %}
+                    {% csrf_token %}
+                    {% if request.user in chirp.likes.all %}
                     <button class="btn like-btn" type="submit">Unlike</button>
-                  {% else %}
+                    {% else %}
                     <button class="btn like-btn" type="submit">Like</button>
-                  {% endif %}
+                    {% endif %}
                 </form>
-              {% endif %}
+                {% endif %}
 
-              <form action="{% url 'chirper:reply_chirp' chirp.id %}" method="get">
-                <button class="btn chirp-btn" type="submit">Reply</button>
-              </form>
+                <form action="{% url 'chirper:reply_chirp' chirp.id %}" method="get">
+                    <button class="btn chirp-btn" type="submit">Reply</button>
+                </form>
             </div>
-          {% endfor %}
+            {% endfor %}
         </ul>
-      {% else %}
+        {% else %}
         <p>No chirps available.</p>
-      {% endif %}
+        {% endif %}
     </main>
-  </body>
+</body>
+
 {% endblock %}

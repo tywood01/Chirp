@@ -20,7 +20,6 @@ from chirper.forms.forms import ChirpForm, ProfileForm
 from django.http import HttpResponse
 
 
-# Views
 def profile(request, username):
     template_name = "chirper/profile.html"
     user = get_object_or_404(User, username=username)

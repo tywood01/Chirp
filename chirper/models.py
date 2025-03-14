@@ -7,6 +7,7 @@ Github: https://github.com/tywood01
 
 Purpose:
     Define the models for the chirper app.
+    These will be mapped to the database by Django's ORM.
 
 """
 

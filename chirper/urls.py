@@ -1,3 +1,15 @@
+"""
+chirper/urls.py
+
+Authors: Tytus Woodburn
+Email: tytus.woodburn@student.cune.edu
+Github: https://github.com/tywood01
+
+Purpose:
+    Provide view responses for the chirper app.
+
+"""
+
 from django.urls import path
 from .views import profile
 from . import views

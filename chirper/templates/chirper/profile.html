@@ -1,39 +1,49 @@
 {% extends 'chirper/base.html' %}
+
 {% block title %}
 Chirper
 {% endblock %}
+
 {% block logo_text %}
 <h1>Profile</h1>
 {% endblock %}
+
 {% block content %}
-<a href="{% url 'chirper:chirps' %}" class="nav-link">Home</a>
-<a href="{% url 'chirper:add_chirp' %}" class="nav-link">Add Chirp</a>
 
-<h1>{{ user.username }}</h1>
-<p>Bio: {{ profile.bio }}</p>
+<body>
+    <main>
+        <a href="{% url 'chirper:chirps' %}" class="nav-link">Home</a>
+        <a href="{% url 'chirper:add_chirp' %}" class="nav-link">Add Chirp</a>
 
-{% if request.user.is_authenticated %}
-<form action="{% url 'chirper:toggle_follow' followed=user.username %}" method="post">
-    {% csrf_token %}
-    {% if is_following %}
-    <input type="submit" value="Unfollow" />
-    {% else %}
-    <input type="submit" value="Follow" />
-    {% endif %}
-</form>
-{% endif %}
+        <h1>{{ user.username }}</h1>
+        <p>Bio: {{ profile.bio }}</p>
 
-{% if user_chirp_list %}
-<ul>
-    {% for chirp in user_chirp_list %}
-    <li>
-        <p>{{ chirp.body }}</p>
-        <small>Posted on: {{ chirp.date }}</small>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No chirps available.</p>
-{% endif %}
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'chirper:toggle_follow' followed=user.username %}" method="post">
+            {% csrf_token %}
+            {% if is_following %}
+            <input type="submit" value="Unfollow" />
+            {% else %}
+            <input type="submit" value="Follow" />
+            {% endif %}
+        </form>
+        {% endif %}
+
+        {% if user_chirp_list %}
+        <ul>
+            {% for chirp in user_chirp_list %}
+            <li>
+                <p>{{ chirp.body }}</p>
+                <small>Posted on: {{ chirp.date }}</small>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No chirps available.</p>
+        {% endif %}
+
+
+    </main>
+</body>
 
 {% endblock %}

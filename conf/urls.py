@@ -1,4 +1,13 @@
 """
+conf/urls.py
+
+Authors: Tytus Woodburn
+Email: tytus.woodburn@student.cune.edu
+Github: https://github.com/tywood01
+
+
+Additional Information:
+
 URL configuration for conf project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
