@@ -3,7 +3,7 @@ views.py
 
 Authors: Silas Curtis, Tytus Woodburn
 Emails: silas.curtis@student.cune.edu tytus.woodburn@student.cune.edu
-Github: https://github.com/tywood01
+Github: https://github.com/tywood01 https://github.com/SilasEC
 
 Purpose:
     Provide view responses for the chirper app.

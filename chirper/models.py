@@ -3,7 +3,7 @@ models.py
 
 Authors: Silas Curtis, Tytus Woodburn
 Emails: silas.curtis@student.cune.edu tytus.woodburn@student.cune.edu
-Github: https://github.com/tywood01
+Github: https://github.com/tywood01 https://github.com/SilasEC
 
 Purpose:
     Define the models for the chirper app.
