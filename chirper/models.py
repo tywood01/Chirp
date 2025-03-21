@@ -41,9 +41,11 @@ class Likes(models.Model):
     chirp = models.ForeignKey(Chirp, on_delete=models.CASCADE, related_name="likes")
 
     class Meta:
-        constraints = models.UniqueConstraint(
-            fields=["user", "chirp"], name="unique user chirp like"
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=("user", "chirp"), name="unique user chirp like"
+            )
+        ]
 
 
 class Follow(models.Model):
@@ -59,6 +61,8 @@ class Follow(models.Model):
     class Meta:
         """One can't follow oneself."""
 
-        constraints = models.UniqueConstraint(
-            fields=["follower", "followed"], name="unique follower followed"
-        )
+        constraints = [
+            models.UniqueConstraint(
+                fields=("follower", "followed"), name="unique follower followed"
+            )
+        ]
