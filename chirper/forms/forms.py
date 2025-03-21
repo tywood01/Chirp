@@ -39,7 +39,7 @@ class ProfileForm(forms.ModelForm):
     def __init__(self, request, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.request = request
-        self.instance.user = request
+        self.instance.user = request.user
 
     class Meta:
         model = Profile
@@ -50,7 +50,7 @@ class ProfileForm(forms.ModelForm):
                 attrs={
                     "rows": 3,
                     "cols": 60,
-                    "placeholder": "Tell us about yourself!",
+                    "placeholder": "Tell us a lil about your bird-self!",
                     "maxlength": 255,
                 }
             ),

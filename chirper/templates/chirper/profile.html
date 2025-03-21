@@ -29,6 +29,17 @@ Chirper
         </form>
         {% endif %}
 
+
+        {% if request.user.is_authenticated %}
+        {% if user == request.user %}
+
+        <form action="{% url 'chirper:update_profile' %}" method="get">
+            <button class="btn chirp-btn" type="submit">Update Profile</button>
+        </form>
+        {% endif %}
+        {% endif %}
+
+
         {% if user_chirp_list %}
         <ul>
             {% for chirp in user_chirp_list %}

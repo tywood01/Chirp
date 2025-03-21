@@ -24,7 +24,7 @@ def profile(request, username):
     """
     Display a user's profile page showing their information, chirps, and follow status.
 
-    Retrieves the specified user's profile and associated chirps, determines if the 
+    Retrieves the specified user's profile and associated chirps, determines if the
     current user is following them, and renders the profile template with this data.
     """
 
@@ -65,18 +65,17 @@ def my_profile(request):
 def update_profile(request):
     """Show an interface for the user to edit their profile."""
 
+    profile = get_object_or_404(Profile, user=request.user)
+
     if request.method == "POST":
-        form = ProfileForm(request, request.POST)
+        form = ProfileForm(request, request.POST, instance=profile)
 
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = request.user
-            profile.save()
-
+            form.save()
             return HttpResponseRedirect(reverse("chirper:my_profile"))
 
     else:
-        form = ProfileForm(request)
+        form = ProfileForm(request, instance=profile)
 
     return render(request, "chirper/update_profile.html", {"form": form})
 
@@ -109,7 +108,7 @@ def add_chirp(request, parent_id=None):
             if parent_id:
                 chirp.parent_id = parent_id
 
-            form.save()
+            chirp.save()
             return HttpResponseRedirect(reverse("chirper:chirps"))
 
     else:

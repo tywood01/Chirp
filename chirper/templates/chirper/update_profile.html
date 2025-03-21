@@ -1,0 +1,29 @@
+{% extends 'chirper/base.html' %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block logo_text %}
+<h1>Update</h1>
+{% endblock %}
+
+{% block content %}
+
+<body>
+    <main>
+        <a href="{% url 'chirper:chirps' %}" class="nav-link">Home</a>
+        <a href="{% url 'chirper:my_profile' %}" class="nav-link">My Profile</a>
+
+        <div class="profile-form">
+            <h2>Update Profile</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn chirp-btn" type="submit">Update</button>
+            </form>
+        </div>
+    </main>
+</body>
+
+{% endblock %}
