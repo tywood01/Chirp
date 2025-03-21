@@ -1,8 +1,8 @@
 """
 views.py
 
-Authors: Tytus Woodburn
-Email: tytus.woodburn@student.cune.edu
+Authors: Silas Curtis, Tytus Woodburn
+Emails: silas.curtis@student.cune.edu tytus.woodburn@student.cune.edu
 Github: https://github.com/tywood01
 
 Purpose:

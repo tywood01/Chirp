@@ -1,7 +1,7 @@
 """
 tests.py
 
-Authors: Tytus Woodburn
+Author: Tytus Woodburn
 Email: tytus.woodburn@student.cune.edu
 Github: https://github.com/tywood01
 
