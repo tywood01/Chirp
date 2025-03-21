@@ -21,9 +21,15 @@ from django.http import HttpResponse
 
 
 def profile(request, username):
+    """
+    Display a user's profile page showing their information, chirps, and follow status.
+
+    Retrieves the specified user's profile and associated chirps, determines if the 
+    current user is following them, and renders the profile template with this data.
+    """
+
     template_name = "chirper/profile.html"
     user = get_object_or_404(User, username=username)
-
     profile, created = Profile.objects.get_or_create(
         user=user,
         defaults={"bio": "Default bio"},
@@ -47,6 +53,8 @@ def profile(request, username):
 
 
 def my_profile(request):
+    """Redirects to logged in user's profile page."""
+
     if not request.user.is_authenticated:
         return redirect("/accounts/login/")
 
@@ -55,6 +63,8 @@ def my_profile(request):
 
 @login_required
 def update_profile(request):
+    """Show an interface for the user to edit their profile."""
+
     if request.method == "POST":
         form = ProfileForm(request, request.POST)
 
@@ -72,6 +82,8 @@ def update_profile(request):
 
 
 def chirps(request):
+    """Print all chirps for user's viewing pleasure."""
+
     template_name = "chirper/index.html"
     chirp_list = Chirp.objects.all().order_by("-date")
 
@@ -85,6 +97,8 @@ def chirps(request):
 
 @login_required
 def add_chirp(request, parent_id=None):
+    """Create a chirp from logged in user with content from form."""
+
     if request.method == "POST":
         form = ChirpForm(request, request.POST)
 
@@ -107,6 +121,8 @@ def add_chirp(request, parent_id=None):
 
 @login_required
 def toggle_like(request, chirp_id):
+    """Likes or unlikes a chirp based on whether the logged in user already follows them."""
+
     chirp = get_object_or_404(Chirp, id=chirp_id)
     like, created = Likes.objects.get_or_create(user=request.user, chirp=chirp)
 
@@ -128,6 +144,8 @@ def toggle_like(request, chirp_id):
 
 @login_required
 def toggle_follow(request, followed):
+    """Follows or unfollows an account based on whether the logged in user already follows them."""
+
     user = get_object_or_404(User, username=followed)
     follow, created = Follow.objects.get_or_create(follower=request.user, followed=user)
 
