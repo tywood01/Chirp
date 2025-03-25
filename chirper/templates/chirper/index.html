@@ -21,10 +21,10 @@ Chirper
         <ul>
             {% for chirp in chirp_list %}
             <div class="post">
-                <div class="user-info">
-                    <div class="avatar"></div>
+                <div class="chirp-form__user-info">
+                    <div class="chirp-form__avatar"></div>
 
-                    <div class="post-content">
+                    <div class="post__content-text">
                         <h3>Chirp by <a href="{% url 'chirper:profile' username=chirp.user %}">{{ chirp.user }}</a></h3>
                         <p>{{ chirp.body }}</p>
                         {% if chirp.likes.count == 1 %}
@@ -39,15 +39,15 @@ Chirper
                 <form action="{% url 'chirper:toggle_like' chirp_id=chirp.id %}" method="post">
                     {% csrf_token %}
                     {% if request.user in chirp.likes.all %}
-                    <button class="btn like-btn" type="submit">Unlike</button>
+                    <button class="post__like-btn" type="submit">Unlike</button>
                     {% else %}
-                    <button class="btn like-btn" type="submit">Like</button>
+                    <button class="post__like-btn" type="submit">Like</button>
                     {% endif %}
                 </form>
                 {% endif %}
 
                 <form action="{% url 'chirper:reply_chirp' chirp.id %}" method="get">
-                    <button class="btn chirp-btn" type="submit">Reply</button>
+                    <button class="chirp-form__button" type="submit">Reply</button>
                 </form>
             </div>
             {% endfor %}
