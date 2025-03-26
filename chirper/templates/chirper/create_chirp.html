@@ -9,21 +9,17 @@ Chirper
 {% endblock %}
 
 {% block content %}
+<main class="main">
+    <a href="{% url 'chirper:chirps' %}" class="chirp-form__button">Home</a>
+    <a href="{% url 'chirper:my_profile' %}" class="chirp-form__button">My Profile</a>
 
-<body>
-    <main>
-        <a href="{% url 'chirper:chirps' %}" class="nav-link">Home</a>
-        <a href="{% url 'chirper:my_profile' %}" class="nav-link">My Profile</a>
-
-        <div class="chirp-form__textarea">
-            <h2>Add a New Chirp</h2>
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button class="btn chirp-form__button" type="submit">Create Chirp</button>
-            </form>
-        </div>
-    </main>
-</body>
-
+    <div class="chirp-form">
+        <h2>Add a New Chirp</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="chirp-form__button" type="submit">Create Chirp</button>
+        </form>
+    </div>
+</main>
 {% endblock %}
