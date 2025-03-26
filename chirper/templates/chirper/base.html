@@ -17,19 +17,21 @@
 </head>
 
 <body>
-    <header>
-        <div class="logo-title">
-            <div class="logo"></div>
-            {% block logo_text %}
-            {% endblock %}
+    <header class="header">
+        <div class="header__logo-title">
+            <div class="header__logo"></div>
+            <div class="header__title">
+                {% block logo_text %}
+                {% endblock %}
+            </div>
         </div>
     </header>
-    <main>
+    <main class="main">
         {% block content %}
         {% endblock %}
     </main>
-    <footer>
-        <p>2025 Chirper Project. :)</p>
+    <footer class="footer">
+        <p class="footer__text">2025 Chirper Project. :)</p>
     </footer>
 </body>
 

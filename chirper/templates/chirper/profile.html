@@ -9,41 +9,41 @@ Chirper
 {% endblock %}
 
 {% block content %}
+<main class="main">
+    <a href="{% url 'chirper:chirps' %}" class="chirp-form__button">Home</a>
+    <a href="{% url 'chirper:add_chirp' %}" class="chirp-form__button">Add Chirp</a>
 
-<body>
-    <main>
-        <a href="{% url 'chirper:chirps' %}" class="nav-link">Home</a>
-        <a href="{% url 'chirper:add_chirp' %}" class="nav-link">Add Chirp</a>
+    <h1>{{ user.username }}</h1>
+    <p>Bio: {{ profile.bio }}</p>
 
-        <h1>{{ user.username }}</h1>
-        <p>Bio: {{ profile.bio }}</p>
-
-        {% if request.user.is_authenticated %}
-        <form action="{% url 'chirper:toggle_follow' followed=user.username %}" method="post">
-            {% csrf_token %}
-            {% if is_following %}
-            <input type="submit" value="Unfollow" />
-            {% else %}
-            <input type="submit" value="Follow" />
-            {% endif %}
-        </form>
-        {% endif %}
-
-        {% if user_chirp_list %}
-        <ul>
-            {% for chirp in user_chirp_list %}
-            <li>
-                <p>{{ chirp.body }}</p>
-                <small>Posted on: {{ chirp.date }}</small>
-            </li>
-            {% endfor %}
-        </ul>
+    {% if request.user.is_authenticated %}
+    <form action="{% url 'chirper:toggle_follow' followed=user.username %}" method="post">
+        {% csrf_token %}
+        {% if is_following %}
+        <button class="chirp-form__button" type="submit">Unfollow</button>
         {% else %}
-        <p>No chirps available.</p>
+        <button class="chirp-form__button" type="submit">Follow</button>
         {% endif %}
+    </form>
+    {% endif %}
 
+    {% if request.user.is_authenticated and user == request.user %}
+    <form action="{% url 'chirper:update_profile' %}" method="get">
+        <button class="chirp-form__button" type="submit">Update Profile</button>
+    </form>
+    {% endif %}
 
-    </main>
-</body>
-
+    {% if user_chirp_list %}
+    <ul>
+        {% for chirp in user_chirp_list %}
+        <li class="post">
+            <p>{{ chirp.body }}</p>
+            <small>Posted on: {{ chirp.date }}</small>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No chirps available.</p>
+    {% endif %}
+</main>
 {% endblock %}

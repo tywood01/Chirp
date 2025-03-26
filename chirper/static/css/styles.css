@@ -1,3 +1,14 @@
+/*
+* Author: Harvey Weinstein, Tytus Woodburn
+* Email: harvey.weinstein@student.cune.edu, tytus.woodburn@student.cune.edu
+* Github: https://github.com/tywood01
+* Purpose: Styles for the layout of the website.
+*/
+
+
+
+/* ========== Global Styles ========== */
+
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +24,10 @@ body {
     flex-direction: column;
 }
 
-header {
+
+/* ========== Header ========== */
+
+.header {
     background: linear-gradient(90deg, #1DA1F2, #00C4B4);
     color: #FFFFFF;
     padding: 20px;
@@ -21,14 +35,14 @@ header {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.logo-title {
+.header__logo-title {
     display: flex;
     align-items: center;
     gap: 10px;
     justify-content: center;
 }
 
-.logo {
+.header__logo {
     width: 40px;
     height: 40px;
     background: url('../images/Chirpy.png') no-repeat center;
@@ -36,33 +50,25 @@ header {
     animation: bounceIn 0.5s ease;
 }
 
-.nav-link {
-    color: #1DA1F2;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 10px 15px;
-    border-radius: 5px;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-.nav-link:hover {
-    background: #1DA1F2;
-    color: #FFFFFF;
-}
-
-header h1 {
+.header__title {
     font-weight: 700;
     font-size: 2.5rem;
     letter-spacing: 1px;
     animation: fadeIn 1s ease-in-out;
 }
 
-main {
+
+/* ========== Main Content ========== */
+
+.main {
     max-width: 800px;
     margin: 0 auto;
     padding: 30px 20px;
     flex: 1;
 }
+
+
+/* ========== Chirp Form ========== */
 
 .chirp-form {
     max-width: 600px;
@@ -78,13 +84,13 @@ main {
     transform: translateY(-5px);
 }
 
-.user-info {
+.chirp-form__user-info {
     display: flex;
     gap: 15px;
     align-items: flex-start;
 }
 
-.avatar {
+.chirp-form__avatar {
     width: 40px;
     height: 40px;
     background: #E1E8ED;
@@ -92,7 +98,7 @@ main {
     animation: bounceIn 0.5s ease;
 }
 
-.chirp-form textarea {
+.chirp-form__textarea {
     flex: 1;
     padding: 10px;
     border: 1px solid #E1E8ED;
@@ -104,12 +110,12 @@ main {
     transition: border-color 0.3s ease;
 }
 
-.chirp-form textarea:focus {
+.chirp-form__textarea:focus {
     outline: none;
     border-color: #1DA1F2;
 }
 
-.chirp-btn {
+.chirp-form__button {
     align-self: flex-end;
     background: linear-gradient(90deg, #1DA1F2, #00C4B4);
     color: #FFFFFF;
@@ -121,10 +127,13 @@ main {
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.chirp-btn:hover {
+.chirp-form__button:hover {
     background: linear-gradient(90deg, #0d8ddb, #00a99d);
     transform: scale(1.05);
 }
+
+
+/* ========== Post Styles ========== */
 
 .post {
     background: #FFFFFF;
@@ -139,20 +148,21 @@ main {
     transform: translateY(-5px);
 }
 
-.post-content h3 {
+.post__content-title {
     margin: 0 0 5px;
     font-size: 18px;
     color: #0F1419;
     font-weight: 600;
 }
 
-.post-content p {
+.post__content-text {
     margin: 0 0 10px;
     color: #657786;
     font-size: 15px;
 }
 
-.like-btn {
+/* Like Button */
+.post__like-btn {
     background: #E1E8ED;
     color: #0F1419;
     padding: 8px 16px;
@@ -163,12 +173,15 @@ main {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-.like-btn:hover {
+.post__like-btn:hover {
     background: #1DA1F2;
     color: #FFFFFF;
 }
 
-footer {
+
+/* ========== Footer ========== */
+
+.footer {
     background: #0F1419;
     color: #FFFFFF;
     text-align: center;
@@ -176,52 +189,39 @@ footer {
     margin-top: auto;
 }
 
-footer p {
+.footer__text {
     font-size: 14px;
     opacity: 0.8;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* ========== Animations ========== */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes bounceIn {
-    0% {
-        transform: scale(0);
-    }
-
-    50% {
-        transform: scale(1.2);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
+
+/* ========== Responsive Styles ========== */
+
 @media (max-width: 600px) {
-    main {
+    .main {
         padding: 15px;
     }
-
-    .chirp-form,
-    .post {
+    .chirp-form, .post {
         margin: 10px;
     }
-
-    .chirp-form textarea {
+    .chirp-form__textarea {
         font-size: 14px;
     }
-
-    header h1 {
+    .header__title {
         font-size: 2rem;
     }
 }
